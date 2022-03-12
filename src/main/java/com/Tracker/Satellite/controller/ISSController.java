@@ -10,12 +10,21 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api")
 public class ISSController {
 
+    //message failed:
+    private static final String FAILED = "Connection API Failed";
+
     @GetMapping("/location")
     public IssLocater getLocation() {
-
         //URL: http://api.open-notify.org/iss-now.json using RestTemplate
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://api.open-notify.org/iss-now.json", IssLocater.class);
+
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.getForObject("http://api.open-notify.org/iss-now.json", IssLocater.class);
+        }catch (Exception e) {
+            IssLocater issLocater = new IssLocater();
+            issLocater.setMessage(FAILED);
+            return  issLocater;
+        }
 
     }
 }
