@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" ></script>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"> </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sattelite Tracker</title>
+</head>
+<body>
+    
+    <div id="map" style="width:1200px;height:800px"></idv>
+
+    <script>
+
+        //Default from leaftletjs
+        let map = L.map('map', {
+            minZoom:2,
+            maxZoom:2
+        });
+
+        var cartodbAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>';
+        var positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: cartodbAttribution
+        }).addTo(map);
+
+        map.setView([0,0], 15);
+
+        //Poll calling cantinuous API
+        function moveISS() {
+
+        
+
+        //Integrate with backend with URL:
+        $.getJSON('http://localhost:8080/api/location', function(data) {
+            let lat = data['iss_position']['latitude'];
+            let long = data['iss_position']['longitude'];
+
+            console.log( 'lat =' + lat);
+            console.log( 'long =' + long);
+
+            map.setView([lat, long], map.getZoom());
+            map.flyTo(L.latLng(lat, long), map.getZoom());
+
+            //set a target:
+            let circle = L.circle( [lat, long], {
+                color: "red",
+                fillColor: `red`,
+                fillOpacity: '0.5',
+                radius: 30,
+            }).addTo(map);
+
+        });
+
+        //refresh every 5s:
+        setTimeout(moveISS, 5000);
+    }
+
+    moveISS(); //Calling function
+
+    </script>
+    
+</body>
+</html>
