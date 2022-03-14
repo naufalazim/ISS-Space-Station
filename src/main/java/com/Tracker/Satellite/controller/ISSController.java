@@ -1,6 +1,7 @@
 package com.Tracker.Satellite.controller;
 
 import com.Tracker.Satellite.model.IssLocater;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ public class ISSController {
     private static final String FAILED = "Connection API Failed";
 
     @GetMapping("/location")
+    @CrossOrigin
     public IssLocater getLocation() {
         //URL: http://api.open-notify.org/iss-now.json using RestTemplate
 
