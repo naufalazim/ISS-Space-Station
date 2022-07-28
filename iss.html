@@ -9,19 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sattelite Tracker</title>
 </head>
-<body>
+<body style="background-color:#003865 ;">
 
-    <h1 style="text-align: center; font-family: Helvetica;">Sattelite Location</h1>
-    <p style="text-align: center;">Created by <a href="https://www.linkedin.com/in/mohdnaufalazim/" >Naufal Azim.</a></p>
+    <h1 style="text-align: center; font-family: Helvetica;color:#D4F6CC">Satellite Location</h1>
+    <p style="text-align: center; font-family: verdana;color:#D4F6CC"><b>Created by</b> <a href="https://www.linkedin.com/in/mohdnaufalazim/" style="text-decoration:none ;color:#EF5B0C;" >Naufal Azim.</a></p>
     
-    <div id="map" style="width:2400px;height:800px "></idv>
+    <div id="map" style="width:1600px;height:600px"></div>
 
     <script>
 
         //Default from leaftletjs
         let map = L.map('map', {
             minZoom:2,
-            maxZoom:8
+            maxZoom:6
         });
 
         var cartodbAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>';
@@ -29,7 +29,7 @@
             attribution: cartodbAttribution
         }).addTo(map);
 
-        map.setView([0,0], 80);
+        map.setView([0,0], 50);
 
         let lat = -4;
         let long = -4;
@@ -63,16 +63,16 @@
         });
 
         //refresh every 5s:
-        setTimeout(moveISS, 1000);
+        setTimeout(moveISS, 100);
     }
 
     function setTarget(lat, long) {
            //set a target:
            let circle = L.circle( [lat, long], {
-                color: "red",
-                fillColor: `red`,
+                color: "#A10035",
+                fillColor: `#A10035`,
                 fillOpacity: '10.0',
-                radius: 30,
+                radius: 70,
             }).addTo(map);
     }
 
